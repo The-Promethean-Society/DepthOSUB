@@ -109,7 +109,9 @@ async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
-main().catch(console.error);
+main().catch(req => {
+  console.error("Ensemble Error:", req);
+});
 EOF
 
 # 6. Generate tsconfig.json
@@ -128,13 +130,34 @@ cat <<EOF > tsconfig.json
 }
 EOF
 
-# 7. Initialize Git & Remote
+# 7. Initialize Git & Multi-Branch Structure
 git init
 echo "node_modules/" > .gitignore
 echo "dist/" >> .gitignore
+
+# Setup branches as per Promethea requirements
+git checkout -b main
 git add .
 git commit -m "feat: initial DepthOSUB scaffold for Promethea Network State"
+
+# Create Alpha branch (The core development branch)
+git checkout -b Alpha-0
+
+# Create Testing branch (Where the vibration happens)
+git checkout -b Testing-Initial-Vibe
+
+# Return to Alpha-0 for the initial push
+git checkout Alpha-0
+
+# Add Remote
 git remote add origin https://github.com/The-Promethean-Society/DepthOSUB.git
 
-echo "✅ Codebase generated and Git initialized."
-echo "👉 To finish, run: 'npm install' then 'git push -u origin main'"
+echo "✅ Codebase generated and Local Branches initialized."
+echo "⚠️  FINAL STEP: Run the following commands to populate GitHub and NPM:"
+echo ""
+echo "1. npm install"
+echo "2. npm run build"
+echo "3. npm publish --access public"
+echo "4. git push -u origin Alpha-0"
+echo "5. git push origin main"
+echo "6. git push origin Testing-Initial-Vibe"

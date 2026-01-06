@@ -23,4 +23,6 @@ async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
 }
-main().catch(console.error);
+main().catch(req => {
+  console.error("Ensemble Error:", req);
+});
