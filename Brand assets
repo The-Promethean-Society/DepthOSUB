@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepthOSUB Branding</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 flex flex-col items-center justify-center min-h-screen p-10">
+
+    <div class="max-w-4xl w-full space-y-12 text-center">
+        <!-- Main Logo Section -->
+        <section>
+            <h2 class="text-xs font-black uppercase tracking-[0.3em] text-slate-500 mb-8">Primary Logo (SVG)</h2>
+            <div class="flex justify-center bg-slate-900/50 p-12 rounded-3xl border border-slate-800 shadow-2xl">
+                <svg width="400" height="120" viewBox="0 0 400 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Icon: Neural Hexagon -->
+                    <path d="M40 20L74.641 40V80L40 100L5.35898 80V40L40 20Z" fill="url(#paint0_linear)" fill-opacity="0.2"/>
+                    <path d="M40 25L70.3109 42.5V77.5L40 95L9.68911 77.5V42.5L40 25Z" stroke="#6366F1" stroke-width="2" stroke-dasharray="4 2"/>
+                    <circle cx="40" cy="60" r="8" fill="#6366F1">
+                        <animate attributeName="r" values="8;10;8" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    <circle cx="40" cy="60" r="15" stroke="#818CF8" stroke-opacity="0.5">
+                        <animate attributeName="stroke-opacity" values="0.5;0;0.5" dur="3s" repeatCount="indefinite" />
+                    </circle>
+                    
+                    <!-- Text: DepthOSUB -->
+                    <text x="95" y="72" fill="white" style="font: bold 42px 'Inter', sans-serif; letter-spacing: -1px;">DepthOS<tspan fill="#6366F1">UB</tspan></text>
+                    <text x="95" y="95" fill="#64748B" style="font: 800 10px sans-serif; letter-spacing: 4px; text-transform: uppercase;">Universal Bridge Protocol</text>
+                    
+                    <defs>
+                        <linearGradient id="paint0_linear" x1="40" y1="20" x2="40" y2="100" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#6366F1"/>
+                            <stop offset="1" stop-color="#4338CA"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Favicon / Icon Section -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="p-8 bg-slate-900/50 rounded-2xl border border-slate-800">
+                <h3 class="text-[10px] font-bold uppercase text-slate-500 mb-4">Favicon (64x64)</h3>
+                <div class="flex justify-center">
+                    <svg width="64" height="64" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M50 10L84.641 30V70L50 90L15.359 70V30L50 10Z" fill="#6366F1" fill-opacity="0.1" stroke="#6366F1" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="12" fill="#6366F1"/>
+                        <path d="M50 30V35 M50 65V70 M30 50H35 M65 50H70" stroke="#818CF8" stroke-width="4" stroke-linecap="round"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="p-8 bg-slate-900/50 rounded-2xl border border-slate-800">
+                <h3 class="text-[10px] font-bold uppercase text-slate-500 mb-4">Usage Note</h3>
+                <p class="text-xs text-slate-400 text-left leading-relaxed">
+                    The hexagon represents the <span class="text-indigo-400 font-bold">Ensemble</span>. The pulsing core represents the <span class="text-indigo-400 font-bold">Touchpoint</span> protocol—the source of project gravity. Use the light-weight SVG code directly in your README for instant, retina-ready branding.
+                </p>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
