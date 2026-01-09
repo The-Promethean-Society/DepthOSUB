@@ -1,15 +1,12 @@
 {
-  "name": "@depthos/bridge",
-  "version": "3.7.2",
+  "name": "depthos-bridge",
+  "version": "3.7.3",
   "description": "Polyphonic meritocratic ensemble for Universal IDEs",
   "type": "module",
   "main": "dist/server.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/The-Promethean-Society/DepthOSUB.git"
-  },
   "bin": {
-    "depthos-bridge": "dist/setup.js"
+    "depthos-bridge": "dist/setup.js",
+    "depthos-start": "dist/server.js"
   },
   "scripts": {
     "build": "tsc",
@@ -17,19 +14,22 @@
     "setup": "node dist/setup.js"
   },
   "keywords": [
-    "mcp",
-    "llm",
-    "ensemble",
-    "depthos",
-    "neural-router",
-    "promethea-network"
+    "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network"
   ],
+  "mcp": {
+    "servers": {
+      "depthos-bridge": "dist/server.js"
+    }
+  },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^0.6.0",
+    "@modelcontextprotocol/sdk": "latest",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
     "@types/node": "^20.11.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

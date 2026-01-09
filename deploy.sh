@@ -1,12 +1,14 @@
 #!/bin/bash
 
-# DepthOS Universal Bridge (DepthOSUB) - V3.7.3 Automated Deployer
-# Full Implementation: Secret Hardening + Autonomous Scaffolding + Neural Router
+# DepthOS Universal Bridge (DepthOSUB) - V3.7.3 Refactored Pipeline
+# Stage 1: Scaffolding, Secrets & Forge | Stage 2: Git Shielding
 # Target: The-Promethean-Society/DepthOSUB
 
 echo "🌌 Initializing Full DepthOSUB Deployment for Promethea Network State..."
 
-# 1. NATIVE SOURCE EXTRACTION
+# --- STAGE 1: THE FORGE (Local Implementation) ---
+
+# 1.1 Secret Extraction
 ENV_FILE="./.env"
 if [ ! -f "$ENV_FILE" ]; then
     ENV_FILE="/Users/officeone/depthos-bridge/.env"
@@ -20,22 +22,20 @@ if [ -f "$ENV_FILE" ]; then
     NPM_TOKEN=$(echo "$NPM_TOKEN" | tr -d '\r' | tr -d '"' | tr -d "'" | xargs)
 fi
 
-# 2. VALIDATION & NPMRC GENERATION
+# 1.2 Validation & NPMRC Generation (Non-Fatal for Syncing)
 if [ -z "$NPM_TOKEN" ]; then
-    echo "❌ FATAL: NPM_TOKEN is empty."
-    exit 1
+    echo "⚠️  WARNING: NPM_TOKEN is empty. Publish will fail, but local build will work."
 else
     echo "registry=https://registry.npmjs.org/" > .npmrc
     echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" >> .npmrc
     chmod 600 .npmrc
-    echo "✅ .npmrc generated."
+    echo "✅ .npmrc generated for publication."
 fi
 
-# 3. DIRECTORY SCAFFOLDING
+# 1.3 Directory Scaffolding
 mkdir -p src extension .depthos docs/adr
 
-# 4. GENERATE PACKAGE.JSON (V3.7.3)
-# Added "mcp" property for registry indexing
+# 1.4 Generate package.json (V3.7.3)
 cat <<EOF > package.json
 {
   "name": "depthos-bridge",
@@ -74,17 +74,13 @@ cat <<EOF > package.json
 }
 EOF
 
-# 5. GENERATE MCP SERVER CONFIG (For mcp.so / IDEs)
+# 1.5 Generate MCP Server Config
 cat <<EOF > mcp-server.config.json
 {
   "mcpServers": {
     "depthos-bridge": {
       "command": "npx",
-      "args": [
-        "-y",
-        "depthos-bridge@latest",
-        "start"
-      ],
+      "args": ["-y", "depthos-bridge@latest", "start"],
       "env": {
         "DEPTHOS_MODE": "polyphonic",
         "NETWORK_STATE": "promethea"
@@ -95,10 +91,9 @@ cat <<EOF > mcp-server.config.json
 }
 EOF
 
-# 6. GENERATE SMITHERY.YAML (Missing piece for MCP.so / Smithery)
+# 1.6 Generate smithery.yaml
 cat <<EOF > smithery.yaml
 # Smithery configuration for automated MCP installation
-# For more information, see https://smithery.ai/docs/config/smithery-yaml
 version: 1
 packageManager: npm
 build:
@@ -107,9 +102,7 @@ start:
   command: node dist/server.js
 EOF
 
-echo "✅ mcp-server.config.json and smithery.yaml generated."
-
-# 7. GENERATE SRC/SETUP.TS (With Node Shebang)
+# 1.7 Generate src/setup.ts
 cat <<EOF > src/setup.ts
 #!/usr/bin/env node
 import * as fs from 'fs';
@@ -135,7 +128,7 @@ async function autonomousSetup() {
 autonomousSetup().catch(console.error);
 EOF
 
-# 8. GENERATE SRC/SERVER.TS (With Node Shebang)
+# 1.8 Generate src/server.ts
 cat <<EOF > src/server.ts
 #!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -160,7 +153,7 @@ async function main() {
 main().catch(console.error);
 EOF
 
-# 9. TSCONFIG & GIT SYNC
+# 1.9 Generate tsconfig.json
 cat <<EOF > tsconfig.json
 {
   "compilerOptions": {
@@ -177,20 +170,28 @@ cat <<EOF > tsconfig.json
 }
 EOF
 
-git init 2>/dev/null
-git remote add origin https://github.com/The-Promethean-Society/DepthOSUB.git 2>/dev/null || git remote set-url origin https://github.com/The-Promethean-Society/DepthOSUB.git
-git fetch origin
-git checkout main 2>/dev/null || git checkout -b main
-git add .
-git commit -m "feat: align with MCP.so requirements (smithery.yaml and mcp manifest)" 2>/dev/null
+# --- STAGE 2: THE SHIELD (Git Protection Sequence) ---
 
+cat <<EOF > .gitignore
+node_modules
+dist
+.env
+.npmrc
+.DS_Store
+deploy.sh
+EOF
+
+echo "✅ All production files and scaffolding generated."
+echo "✅ .gitignore shield activated."
 echo ""
-echo "✅ DepthOSUB Structure Harmonized."
-echo "🚀 FINAL PUBLISH & SYNC SEQUENCE:"
+echo "🚀 FINAL SYNC SEQUENCE (Manual Control):"
 echo "--------------------------------------------------------"
-echo "1. bash deploy.sh"
-echo "2. npm install && npm run build"
-echo "3. chmod +x dist/setup.js dist/server.js"
-echo "4. git push origin main --force"
-echo "5. NPM_CONFIG_USERCONFIG=./.npmrc npm publish"
+echo "1. git reset --hard origin/main"
+echo "2. bash deploy.sh"
+echo "3. git add ."
+echo "4. git status (VERIFY: .env and .npmrc MUST NOT be staged)"
+echo "5. git commit -m 'feat: align with MCP requirements v3.7.3'"
+echo "6. git push origin main"
+echo "7. npm install && npm run build"
+echo "8. NPM_CONFIG_USERCONFIG=./.npmrc npm publish"
 echo "--------------------------------------------------------"

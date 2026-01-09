@@ -1,0 +1,7 @@
+# Smithery configuration for automated MCP installation
+version: 1
+packageManager: npm
+build:
+  command: npm run build
+start:
+  command: node dist/server.js

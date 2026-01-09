@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "depthos-bridge": {
+      "command": "npx",
+      "args": ["-y", "depthos-bridge@latest", "start"],
+      "env": {
+        "DEPTHOS_MODE": "polyphonic",
+        "NETWORK_STATE": "promethea"
+      },
+      "description": "The Neural Router for DepthOS. Orchestrates multiple LLM contexts via MCP."
+    }
+  }
+}
