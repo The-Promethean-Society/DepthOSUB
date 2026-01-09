@@ -35,6 +35,7 @@ fi
 mkdir -p src extension .depthos docs/adr
 
 # 4. GENERATE PACKAGE.JSON (V3.7.3)
+# Added "mcp" property for registry indexing
 cat <<EOF > package.json
 {
   "name": "depthos-bridge",
@@ -54,6 +55,11 @@ cat <<EOF > package.json
   "keywords": [
     "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network"
   ],
+  "mcp": {
+    "servers": {
+      "depthos-bridge": "dist/server.js"
+    }
+  },
   "dependencies": {
     "@modelcontextprotocol/sdk": "latest",
     "zod": "^3.22.4"
@@ -88,9 +94,22 @@ cat <<EOF > mcp-server.config.json
   }
 }
 EOF
-echo "✅ mcp-server.config.json generated for submission."
 
-# 6. GENERATE SRC/SETUP.TS (With Node Shebang)
+# 6. GENERATE SMITHERY.YAML (Missing piece for MCP.so / Smithery)
+cat <<EOF > smithery.yaml
+# Smithery configuration for automated MCP installation
+# For more information, see https://smithery.ai/docs/config/smithery-yaml
+version: 1
+packageManager: npm
+build:
+  command: npm run build
+start:
+  command: node dist/server.js
+EOF
+
+echo "✅ mcp-server.config.json and smithery.yaml generated."
+
+# 7. GENERATE SRC/SETUP.TS (With Node Shebang)
 cat <<EOF > src/setup.ts
 #!/usr/bin/env node
 import * as fs from 'fs';
@@ -116,7 +135,7 @@ async function autonomousSetup() {
 autonomousSetup().catch(console.error);
 EOF
 
-# 7. GENERATE SRC/SERVER.TS (With Node Shebang)
+# 8. GENERATE SRC/SERVER.TS (With Node Shebang)
 cat <<EOF > src/server.ts
 #!/usr/bin/env node
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
@@ -141,7 +160,7 @@ async function main() {
 main().catch(console.error);
 EOF
 
-# 8. TSCONFIG & GIT SYNC
+# 9. TSCONFIG & GIT SYNC
 cat <<EOF > tsconfig.json
 {
   "compilerOptions": {
@@ -163,7 +182,7 @@ git remote add origin https://github.com/The-Promethean-Society/DepthOSUB.git 2>
 git fetch origin
 git checkout main 2>/dev/null || git checkout -b main
 git add .
-git commit -m "feat: add mcp-server.config.json and resolve npx execution" 2>/dev/null
+git commit -m "feat: align with MCP.so requirements (smithery.yaml and mcp manifest)" 2>/dev/null
 
 echo ""
 echo "✅ DepthOSUB Structure Harmonized."
