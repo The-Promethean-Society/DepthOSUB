@@ -1,9 +1,14 @@
 {
   "name": "depthos-bridge",
-  "version": "3.7.3",
-  "description": "Polyphonic meritocratic ensemble for Universal IDEs",
+  "version": "4.1.0",
+  "displayName": "DepthOS Bridge",
+  "description": "Constitutional Polyphonic Bridge for Universal IDEs. Orchestrate model-agnostic expert teams grounded in truth.",
+  "publisher": "LVHLLC",
   "type": "module",
-  "main": "dist/server.js",
+  "main": "dist/extension.js",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
   "bin": {
     "depthos-bridge": "dist/setup.js",
     "depthos-start": "dist/server.js"
@@ -11,10 +16,11 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "setup": "node dist/setup.js"
+    "setup": "node dist/setup.js",
+    "sideload": "vsce package && code --install-extension *.vsix"
   },
   "keywords": [
-    "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network"
+    "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network", "antigravity", "constitutional-ai"
   ],
   "mcp": {
     "servers": {
@@ -22,12 +28,17 @@
     }
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "latest",
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@google/generative-ai": "^0.2.0",
+    "dotenv": "^16.4.1",
+    "node-fetch": "^3.3.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
-    "@types/node": "^20.11.0"
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "vsce": "^2.15.0"
   },
   "publishConfig": {
     "access": "public"

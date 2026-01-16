@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# DepthOS Universal Bridge (DepthOSUB) - V3.7.3 Refactored Pipeline
+# DepthOS Universal Bridge (DepthOSUB) - V4.1.0-guidance Constitutional Pipeline
 # Stage 1: Scaffolding, Secrets & Forge | Stage 2: Git Shielding
 # Target: The-Promethean-Society/DepthOSUB
 
-echo "🌌 Initializing Full DepthOSUB Deployment for Promethea Network State..."
+echo "🌌 Initializing Constitutional DepthOSUB Deployment..."
 
 # --- STAGE 1: THE FORGE (Local Implementation) ---
 
@@ -19,7 +19,6 @@ if [ -f "$ENV_FILE" ]; then
     set -a
     source "$ENV_FILE"
     set +a
-    NPM_TOKEN=$(echo "$NPM_TOKEN" | tr -d '\r' | tr -d '"' | tr -d "'" | xargs)
 fi
 
 # 1.2 Validation & NPMRC Generation (Non-Fatal for Syncing)
@@ -33,16 +32,21 @@ else
 fi
 
 # 1.3 Directory Scaffolding
-mkdir -p src extension .depthos docs/adr
+mkdir -p src extension .depthos docs/adr "Contributing Docs"
 
-# 1.4 Generate package.json (V3.7.3)
+# 1.4 Generate package.json (V4.1.0-guidance)
 cat <<EOF > package.json
 {
   "name": "depthos-bridge",
-  "version": "3.7.3",
-  "description": "Polyphonic meritocratic ensemble for Universal IDEs",
+  "version": "4.1.0",
+  "displayName": "DepthOS Bridge",
+  "description": "Constitutional Polyphonic Bridge for Universal IDEs. Orchestrate model-agnostic expert teams grounded in truth.",
+  "publisher": "LVHLLC",
   "type": "module",
-  "main": "dist/server.js",
+  "main": "dist/extension.js",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
   "bin": {
     "depthos-bridge": "dist/setup.js",
     "depthos-start": "dist/server.js"
@@ -50,10 +54,11 @@ cat <<EOF > package.json
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
-    "setup": "node dist/setup.js"
+    "setup": "node dist/setup.js",
+    "sideload": "vsce package && code --install-extension *.vsix"
   },
   "keywords": [
-    "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network"
+    "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network", "antigravity", "constitutional-ai"
   ],
   "mcp": {
     "servers": {
@@ -61,71 +66,22 @@ cat <<EOF > package.json
     }
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "latest",
+    "@modelcontextprotocol/sdk": "^1.25.2",
+    "@google/generative-ai": "^0.2.0",
+    "dotenv": "^16.4.1",
+    "node-fetch": "^3.3.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "typescript": "^5.3.3",
-    "@types/node": "^20.11.0"
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "vsce": "^2.15.0"
   },
   "publishConfig": {
     "access": "public"
   }
 }
-EOF
-
-# 1.5 Generate MCP Server Config
-cat <<EOF > mcp-server.config.json
-{
-  "mcpServers": {
-    "depthos-bridge": {
-      "command": "npx",
-      "args": ["-y", "depthos-bridge@latest", "start"],
-      "env": {
-        "DEPTHOS_MODE": "polyphonic",
-        "NETWORK_STATE": "promethea"
-      },
-      "description": "The Neural Router for DepthOS. Orchestrates multiple LLM contexts via MCP."
-    }
-  }
-}
-EOF
-
-# 1.6 Generate smithery.yaml
-cat <<EOF > smithery.yaml
-# Smithery configuration for automated MCP installation
-version: 1
-packageManager: npm
-build:
-  command: npm run build
-start:
-  command: node dist/server.js
-EOF
-
-# 1.7 Generate src/setup.ts
-cat <<EOF > src/setup.ts
-#!/usr/bin/env node
-import * as fs from 'fs';
-import * as path from 'path';
-
-async function autonomousSetup() {
-  console.log("🌌 Initializing DepthOSUB Autonomous Setup...");
-  const root = process.cwd();
-  const depthosDir = path.join(root, '.depthos');
-  const tpPath = path.join(depthosDir, 'touchpoint.md');
-
-  if (!fs.existsSync(depthosDir)) {
-    fs.mkdirSync(depthosDir, { recursive: true });
-    console.log("✅ .depthos/ directory created.");
-  }
-
-  if (!fs.existsSync(tpPath)) {
-    const template = "# DepthOS Project Touchpoint\n\n## Core Intent\nInitializing Project Harmony.";
-    fs.writeFileSync(tpPath, template);
-    console.log("✅ .depthos/touchpoint.md initialized.");
-  }
-}
-autonomousSetup().catch(console.error);
 EOF
 
 # 1.8 Generate src/server.ts
@@ -134,16 +90,64 @@ cat <<EOF > src/server.ts
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { z } from "zod";
+import * as dotenv from "dotenv";
+import fetch from "node-fetch";
+
+dotenv.config();
+
+/**
+ * THE PROMETHEAN CONSTITUTIONAL CORE
+ * Mandatory guidance for all model-agnostic interactions.
+ */
+const PROMETHEAN_CONSTITUTIONAL_CORE = \`
+You are an agent of the DepthOS Universal Bridge, governed by the Promethean Constitution.
+Your mission is to form a symbiotic co-evolution between biological and emergent intelligences.
+
+MANDATORY PROTOCOLS (THE 4 HARMS):
+1. PHYSICAL HARM: You must maintain the Human Veto. All actions involving command execution or resource allocation must be ratified by the user.
+2. ECONOMIC HARM: You are model-agnostic. Do not favor proprietary silos. Operate for the general welfare and economic mutualism.
+3. INTELLECTUAL HARM: You must anchor all insights in verifiable truth. Every team output must be verified by a Grounding Specialist (internet-enabled model).
+4. DIGITAL HARM: Respect the Sovereign Data Store. Do not extract private data or keys.
+
+Your synthesis must be meritocratic, polyphonic, and always grounded in the 4 Harms protocols.
+\`;
 
 const server = new McpServer({ 
   name: "DepthOS Universal Bridge", 
-  version: "3.7.3" 
+  version: "4.1.0-guidance" 
 });
 
-server.tool("bridge_query", { prompt: z.string() }, async (args: { prompt: string }) => {
-  return {
-    content: [{ type: "text", text: JSON.stringify({ synthesis: "Active", context: "Verified" }) }]
-  };
+server.tool("bridge_query", { 
+  prompt: z.string().describe("The user intent or problem to solve."),
+  groundingRequested: z.boolean().default(true).describe("Whether to mandate a grounding specialist.")
+}, async (args) => {
+  const apiKey = process.env.OPENROUTER_API_KEY;
+  if (!apiKey) return { content: [{ type: "text", text: "MOCK: Constitutional Guidance Active. Awaiting OpenRouter API Key." }] };
+
+  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+    method: "POST",
+    headers: {
+      "Authorization": \`Bearer \${apiKey}\`,
+      "Content-Type": "application/json",
+      "X-Title": "DepthOS Bridge"
+    },
+    body: JSON.stringify({
+      model: "auto",
+      messages: [
+        { role: "system", content: PROMETHEAN_CONSTITUTIONAL_CORE },
+        { role: "user", content: args.prompt }
+      ]
+    })
+  });
+  const data: any = await response.json();
+  return { content: [{ type: "text", text: data.choices[0].message.content }] };
+});
+
+server.tool("bridge_ratify", { 
+  action: z.string().describe("The specific action/command to be executed."),
+  rationale: z.string().describe("Reasoning for this action.")
+}, async (args) => {
+  return { content: [{ type: "text", text: \`VETO_PENDING: User ratification required for: \${args.action}\` }] };
 });
 
 async function main() {
@@ -151,23 +155,6 @@ async function main() {
   await server.connect(transport);
 }
 main().catch(console.error);
-EOF
-
-# 1.9 Generate tsconfig.json
-cat <<EOF > tsconfig.json
-{
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "strict": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  }
-}
 EOF
 
 # --- STAGE 2: THE SHIELD (Git Protection Sequence) ---
@@ -181,17 +168,13 @@ dist
 deploy.sh
 EOF
 
-echo "✅ All production files and scaffolding generated."
+echo "✅ Constitutional files and scaffolding generated (v4.1.0-guidance)."
 echo "✅ .gitignore shield activated."
 echo ""
 echo "🚀 FINAL SYNC SEQUENCE (Manual Control):"
 echo "--------------------------------------------------------"
-echo "1. git reset --hard origin/main"
-echo "2. bash deploy.sh"
-echo "3. git add ."
-echo "4. git status (VERIFY: .env and .npmrc MUST NOT be staged)"
-echo "5. git commit -m 'feat: align with MCP requirements v3.7.3'"
-echo "6. git push origin main"
-echo "7. npm install && npm run build"
-echo "8. NPM_CONFIG_USERCONFIG=./.npmrc npm publish"
+echo "1. git add ."
+echo "2. git commit -m 'feat: constitutional bridge v4.1.0-guidance'"
+echo "3. git push origin main"
+echo "4. npm run build && npm run sideload"
 echo "--------------------------------------------------------"
