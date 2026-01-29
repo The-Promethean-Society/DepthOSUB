@@ -1,44 +1,236 @@
 {
   "name": "depthos-bridge",
-  "version": "4.1.0",
+  "version": "5.3.2",
+  "type": "module",
   "displayName": "DepthOS Bridge",
   "description": "Constitutional Polyphonic Bridge for Universal IDEs. Orchestrate model-agnostic expert teams grounded in truth.",
   "publisher": "LVHLLC",
-  "type": "module",
-  "main": "dist/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/The-Promethean-Society/DepthOSUB.git"
+  },
+  "main": "dist/extension.cjs",
   "engines": {
     "vscode": "^1.85.0"
   },
+  "activationEvents": [],
+  "contributes": {
+    "commands": [
+      {
+        "command": "depthos-bridge.start",
+        "title": "DepthOS: Start Bridge Orchestration"
+      },
+      {
+        "command": "depthos-bridge.focus",
+        "title": "DepthOS: Focus Constitutional Bridge",
+        "icon": "$(rocket)"
+      },
+      {
+        "command": "depthos-bridge.configure",
+        "title": "DepthOS: Configure Bridge (API Keys)",
+        "icon": "$(settings-gear)"
+      },
+      {
+        "command": "depthos-bridge.ping",
+        "title": "DepthOS: Ping (Verify Activation)"
+      },
+      {
+        "command": "depthos-bridge.reset",
+        "title": "DepthOS: Reset Bridge UI"
+      }
+    ],
+    "configuration": {
+      "title": "DepthOS Bridge",
+      "properties": {
+        "depthos-bridge.openRouterApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API Key for OpenRouter.ai (used for the Meritocratic Ensemble).",
+          "scope": "application"
+        },
+        "depthos-bridge.ratificationScale": {
+          "type": "integer",
+          "default": 3,
+          "minimum": 0,
+          "maximum": 10,
+          "description": "The level of human ratification required (0: None, 10: Strict).",
+          "scope": "application"
+        },
+        "depthos-bridge.permissionCli": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow agents to execute terminal/CLI commands.",
+          "scope": "application"
+        },
+        "depthos-bridge.googleAiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Google AI Studio (Gemini) API Key.",
+          "scope": "application"
+        },
+        "depthos-bridge.groqApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Your Groq API Key for ultra-fast Llama 3 models.",
+          "scope": "application"
+        },
+        "depthos-bridge.permissionBrowser": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow agents to access the browser and internet.",
+          "scope": "application"
+        },
+        "depthos-bridge.permissionAuth": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow agents to handle authentication and credentials.",
+          "scope": "application"
+        },
+        "depthos-bridge.orchestrationMode": {
+          "type": "string",
+          "enum": [
+            "meritocratic",
+            "frugal",
+            "sovereign"
+          ],
+          "default": "meritocratic",
+          "description": "Select the brain of the Ensemble (Meritocratic: High-end models, Frugal: Free models, Sovereign: Local models via Ollama).",
+          "scope": "application"
+        },
+        "depthos-bridge.ollamaUrl": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "The URL of your local Ollama instance (used in Sovereign mode).",
+          "scope": "application"
+        },
+        "depthos-bridge.permissionFileSystem": {
+          "type": "boolean",
+          "default": false,
+          "description": "Allow agents to read and write project files.",
+          "scope": "application"
+        },
+        "depthos-bridge.terminalTarget": {
+          "type": "string",
+          "enum": [
+            "bridge",
+            "native",
+            "both"
+          ],
+          "default": "bridge",
+          "description": "Where to execute and display command output.",
+          "scope": "application"
+        },
+        "depthos-bridge.maxTokensPerRequest": {
+          "type": "integer",
+          "default": 4000,
+          "description": "Global ceiling for tokens per agent turn (Prevents 402 errors).",
+          "scope": "application"
+        },
+        "depthos-bridge.modelPreferences": {
+          "type": "object",
+          "default": {},
+          "description": "Map of model ID substrings to score adjustments (e.g., {'mistral': -500, 'gemini': 200}).",
+          "scope": "application"
+        },
+        "depthos-bridge.customProviders": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique ID for this provider (e.g., 'lm-studio')"
+              },
+              "name": {
+                "type": "string",
+                "description": "Display name (e.g., 'Local LM Studio')"
+              },
+              "url": {
+                "type": "string",
+                "description": "Base URL (e.g., 'http://localhost:1234/v1')"
+              },
+              "key": {
+                "type": "string",
+                "description": "API Key (if required)"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "url"
+            ]
+          },
+          "default": [],
+          "description": "Add custom OpenAI-compatible providers to the ensemble.",
+          "scope": "application"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "depthos-bridge-container",
+          "title": "DepthOS Bridge",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "views": {
+      "depthos-bridge-container": [
+        {
+          "type": "webview",
+          "id": "depthos-bridge-view",
+          "name": "Bridge Controls",
+          "icon": "$(rocket)"
+        }
+      ]
+    }
+  },
   "bin": {
-    "depthos-bridge": "dist/setup.js",
-    "depthos-start": "dist/server.js"
+    "depthos-bridge": "dist/setup.mjs",
+    "depthos-start": "dist/server.mjs"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "setup": "node dist/setup.js",
-    "sideload": "vsce package && code --install-extension *.vsix"
+    "clean": "rm -rf dist && rm -f *.vsix",
+    "sync-version": "node scripts/sync-version.js",
+    "prebuild": "npm run sync-version && npm run clean",
+    "build": "npm run build-extension && npm run build-server && npm run build-setup",
+    "build-extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.cjs --external:vscode --format=cjs --platform=node && cp -r src/webview dist/webview",
+    "build-server": "esbuild src/server.ts --bundle --outfile=dist/server.mjs --format=esm --platform=node --external:path --external:fs --external:child_process --external:util --external:events --external:crypto --external:stream --external:url --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\"",
+    "build-setup": "esbuild src/setup.ts --bundle --outfile=dist/setup.mjs --format=esm --platform=node",
+    "start": "node dist/server.mjs",
+    "setup": "node dist/setup.mjs",
+    "sideload": "npm run build && vsce package && antigravity --install-extension *.vsix"
   },
   "keywords": [
-    "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network", "antigravity", "constitutional-ai"
+    "mcp",
+    "llm",
+    "ensemble",
+    "depthos",
+    "neural-router",
+    "promethea-network",
+    "antigravity",
+    "constitutional-ai"
   ],
   "mcp": {
     "servers": {
-      "depthos-bridge": "dist/server.js"
+      "depthos-bridge": "dist/server.mjs"
     }
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.25.2",
     "@google/generative-ai": "^0.2.0",
+    "@modelcontextprotocol/sdk": "^1.25.2",
     "dotenv": "^16.4.1",
+    "marked": "^17.0.1",
     "node-fetch": "^3.3.2",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
     "@types/node": "^20.11.0",
     "@types/vscode": "^1.85.0",
-    "vsce": "^2.15.0"
+    "esbuild": "^0.27.2",
+    "typescript": "^5.3.3",
+    "vsce": "^1.97.0"
   },
   "publishConfig": {
     "access": "public"

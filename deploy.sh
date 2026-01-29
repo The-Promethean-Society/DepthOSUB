@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# DepthOS Universal Bridge (DepthOSUB) - V4.1.0-guidance Constitutional Pipeline
+# DepthOS Universal Bridge (DepthOSUB) - V5.3.2 Constitutional Pipeline
 # Stage 1: Scaffolding, Secrets & Forge | Stage 2: Git Shielding
 # Target: The-Promethean-Society/DepthOSUB
 
-echo "🌌 Initializing Constitutional DepthOSUB Deployment..."
+echo "🌌 Initializing Constitutional DepthOSUB Deployment (v5.3.2)..."
 
 # --- STAGE 1: THE FORGE (Local Implementation) ---
 
@@ -32,30 +32,50 @@ else
 fi
 
 # 1.3 Directory Scaffolding
-mkdir -p src extension .depthos docs/adr "Contributing Docs"
+mkdir -p src/webview extension .depthos docs/adr "Contributing Docs"
 
-# 1.4 Generate package.json (V4.1.0-guidance)
+# 1.4 Generate package.json (V5.3.2)
 cat <<EOF > package.json
 {
   "name": "depthos-bridge",
-  "version": "4.1.0",
+  "version": "5.3.2",
   "displayName": "DepthOS Bridge",
   "description": "Constitutional Polyphonic Bridge for Universal IDEs. Orchestrate model-agnostic expert teams grounded in truth.",
   "publisher": "LVHLLC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/The-Promethean-Society/DepthOSUB.git"
+  },
   "type": "module",
   "main": "dist/extension.js",
   "engines": {
     "vscode": "^1.85.0"
+  },
+  "activationEvents": [
+    "onCommand:depthos-bridge.start"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "depthos-bridge.start",
+        "title": "DepthOS: Start Bridge Orchestration"
+      }
+    ]
   },
   "bin": {
     "depthos-bridge": "dist/setup.js",
     "depthos-start": "dist/server.js"
   },
   "scripts": {
-    "build": "tsc",
+    "clean": "rm -rf dist && rm -f *.vsix",
+    "prebuild": "npm run clean",
+    "build": "npm run build-extension && npm run build-server && npm run build-setup",
+    "build-extension": "esbuild src/extension.ts --bundle --outfile=dist/extension.js --external:vscode --format=cjs --platform=node && cp -r src/webview dist/webview",
+    "build-server": "esbuild src/server.ts --bundle --outfile=dist/server.js --format=esm --platform=node --external:path --external:fs --external:child_process --external:util --external:events --external:crypto --external:stream --external:url --banner:js=\"import { createRequire } from 'module'; const require = createRequire(import.meta.url);\"",
+    "build-setup": "esbuild src/setup.ts --bundle --outfile=dist/setup.js --format=esm --platform=node",
     "start": "node dist/server.js",
     "setup": "node dist/setup.js",
-    "sideload": "vsce package && code --install-extension *.vsix"
+    "sideload": "npm run build && vsce package && antigravity --install-extension *.vsix"
   },
   "keywords": [
     "mcp", "llm", "ensemble", "depthos", "neural-router", "promethea-network", "antigravity", "constitutional-ai"
@@ -114,7 +134,7 @@ Your synthesis must be meritocratic, polyphonic, and always grounded in the 4 Ha
 
 const server = new McpServer({ 
   name: "DepthOS Universal Bridge", 
-  version: "4.1.0-guidance" 
+  version: "5.3.2" 
 });
 
 server.tool("bridge_query", { 
@@ -168,13 +188,13 @@ dist
 deploy.sh
 EOF
 
-echo "✅ Constitutional files and scaffolding generated (v4.1.0-guidance)."
+echo "✅ Constitutional files and scaffolding generated (v5.3.2)."
 echo "✅ .gitignore shield activated."
 echo ""
 echo "🚀 FINAL SYNC SEQUENCE (Manual Control):"
 echo "--------------------------------------------------------"
 echo "1. git add ."
-echo "2. git commit -m 'feat: constitutional bridge v4.1.0-guidance'"
+echo "2. git commit -m 'feat: constitutional bridge v5.3.2'"
 echo "3. git push origin main"
 echo "4. npm run build && npm run sideload"
 echo "--------------------------------------------------------"

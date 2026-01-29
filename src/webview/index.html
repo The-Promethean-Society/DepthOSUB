@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'none'; img-src {{cspSource}} https:; style-src {{cspSource}} 'unsafe-inline'; script-src 'nonce-{{nonce}}' {{cspSource}}; connect-src 'none';">
+    <link href="{{styleUri}}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="tabs">
+        <div class="tab active" data-tab="chat">CHAT</div>
+        <div class="tab" data-tab="terminal">TERMINAL</div>
+        <div class="tab" data-tab="settings">SETTINGS</div>
+    </div>
+
+    <div id="chat-view" class="view active">
+        <div class="header">
+            <h1>BRIDGE</h1>
+            <div id="status-dot" class="status-dot"></div>
+        </div>
+        <div class="chat-container" id="chat">
+            <div class="message bridge">🌌 Constitutional link established.</div>
+        </div>
+        <div style="margin-top: 10px; text-align:center;">
+            <button id="orchestrate">Initialize Orchestration</button>
+        </div>
+    </div>
+
+    <div id="terminal-view" class="view">
+        <div class="header">
+            <h1>TERMINAL MONITOR</h1>
+            <div class="terminal-controls">
+                <button id="clear-terminal" class="icon-btn" title="Clear Terminal">🗑️</button>
+                <button id="toggle-autoscroll" class="icon-btn active" title="Auto-scroll">📜</button>
+            </div>
+        </div>
+        <div class="terminal-stats">
+            <span id="terminal-stats-commands">Commands: 0</span>
+            <span id="terminal-stats-running">Running: 0</span>
+        </div>
+        <div class="terminal-container" id="terminal-output">
+            <div class="terminal-welcome">
+                <div class="terminal-icon">⚡</div>
+                <div class="terminal-welcome-text">Terminal Monitor Ready</div>
+                <div class="terminal-welcome-subtext">Command execution will appear here</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="settings-view" class="view">
+        <div class="settings-group">
+            <div class="setting-item">
+                <span class="setting-label">API Key (OpenRouter)</span>
+                <input type="password" id="api-key" value="{{apiKey}}" placeholder="sk-or-v1-...">
+            </div>
+            <div class="setting-item">
+                <span class="setting-label">Ratification Scale: <span id="rat-val">{{ratification}}</span></span>
+                <input type="range" id="ratification-range" min="0" max="10" value="{{ratification}}">
+            </div>
+            <div class="setting-item" style="margin-top: 10px;">
+                <span class="setting-label">Permissions</span>
+                <div class="toggle-row"><span>Terminal/CLI</span><input type="checkbox" id="perm-cli" {{permCli}}></div>
+                <div class="toggle-row"><span>Browser Access</span><input type="checkbox" id="perm-browser"
+                        {{permBrowser}}></div>
+                <div class="toggle-row"><span>Auth & Secrets</span><input type="checkbox" id="perm-auth" {{permAuth}}>
+                </div>
+                <div class="toggle-row"><span>File System</span><input type="checkbox" id="perm-fs" {{permFs}}></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="input-area">
+        <input type="text" id="input" placeholder="Query ensemble...">
+        <button id="ask-btn">Ask</button>
+    </div>
+
+    <div class="diagnostic">DepthOS v5.0.0</div>
+
+    <script nonce="{{nonce}}" src="{{scriptUri}}"></script>
+</body>
+
+</html>

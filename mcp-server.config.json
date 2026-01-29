@@ -1,8 +1,10 @@
 {
   "mcpServers": {
     "depthos-bridge": {
-      "command": "npx",
-      "args": ["-y", "depthos-bridge@latest", "start"],
+      "command": "node",
+      "args": [
+        "dist/server.js"
+      ],
       "env": {
         "DEPTHOS_MODE": "polyphonic",
         "NETWORK_STATE": "promethea"
