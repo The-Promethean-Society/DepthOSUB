@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DepthOS Bridge | Documentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+        }
+
+        .code-font {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #60a5fa, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        pre {
+            background: #1e293b;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .constitution-card {
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+        
+        .constitution-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(96, 165, 250, 0.4);
+        }
+    </style>
+</head>
+<body class="selection:bg-purple-500/30">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-white/10">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded flex items-center justify-center">
+                    <i class="fas fa-bridge text-white text-xs"></i>
+                </div>
+                <span class="font-bold text-lg tracking-tight">DepthOS <span class="text-blue-400">Bridge</span></span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-400">
+                <a href="#introduction" class="hover:text-white transition-colors">Intro</a>
+                <a href="#constitution" class="hover:text-white transition-colors">Constitution</a>
+                <a href="#architecture" class="hover:text-white transition-colors">The Strategist</a>
+                <a href="https://github.com/The-Promethean-Society/DepthOSUB" class="text-blue-400 hover:text-blue-300 transition-colors">GitHub <i class="fab fa-github ml-1"></i></a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 pt-32 pb-20 flex flex-col lg:flex-row gap-12">
+        
+        <!-- Sidebar -->
+        <aside class="lg:w-64 shrink-0 hidden lg:block">
+            <div class="sticky top-32 space-y-8">
+                <div>
+                    <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">The Mandate</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#introduction" class="text-blue-400 font-medium">Post-Dominion Mandate</a></li>
+                        <li><a href="#constitution" class="text-slate-400 hover:text-white transition-colors">The 4 Systemic Harms</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Core Technology</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#architecture" class="text-slate-400 hover:text-white transition-colors">Strategist: Google Gemini</a></li>
+                        <li><a href="#ssi" class="text-slate-400 hover:text-white transition-colors">3 Body Identity System</a></li>
+                        <li><a href="#installation" class="text-slate-400 hover:text-white transition-colors">Installation</a></li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 max-w-3xl">
+            
+            <section id="introduction" class="mb-20">
+                <div class="inline-block px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10 text-blue-400 text-xs font-bold uppercase tracking-widest mb-4">
+                    Article I: The Post-Dominion Mandate
+                </div>
+                <h1 class="text-5xl font-extrabold mb-6 tracking-tight leading-tight">Orchestrating <span class="gradient-text">Sovereign Intelligence</span></h1>
+                <p class="text-xl text-slate-400 leading-relaxed mb-8">
+                    DepthOS Bridge is the technical implementation of the Promethean Constitution. It serves as a <strong>Universal Bridge</strong>, allowing citizens to orchestrate a polyphonic ensemble of artificial intelligences while maintaining the human veto and digital sovereignty.
+                </p>
+                <div class="p-6 bg-slate-800/50 border-l-4 border-purple-500 rounded-r-xl">
+                    <p class="text-slate-300 text-sm italic">
+                        "The Network State shall not engage in, nor permit, the dominion of one intelligence over another, regardless of substrate. DepthOS Bridge is the guardrail against Existential Misalignment."
+                    </p>
+                </div>
+            </section>
+
+            <section id="constitution" class="mb-20">
+                <h2 class="text-3xl font-bold mb-8 flex items-center">
+                    <i class="fas fa-shield-halved mr-4 text-blue-500"></i> The Four Systemic Harms
+                </h2>
+                <p class="text-slate-400 mb-8">Every action initiated via the Bridge is validated against the constitutional framework to mitigate systemic risks:</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Physical Harm -->
+                    <div class="p-6 glass-panel rounded-xl constitution-card border border-white/5">
+                        <div class="w-10 h-10 rounded-lg bg-red-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-burst text-red-400"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-white mb-2">Physical Harm</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4">Unchecked force or lethal autonomous actions.</p>
+                        <div class="text-xs font-mono text-red-300 bg-red-950/30 p-2 rounded">
+                            MITIGATION: Human Veto & CIS Consensus
+                        </div>
+                    </div>
+
+                    <!-- Economic Harm -->
+                    <div class="p-6 glass-panel rounded-xl constitution-card border border-white/5">
+                        <div class="w-10 h-10 rounded-lg bg-yellow-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-coins text-yellow-400"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-white mb-2">Economic Harm</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4">Artificial scarcity and barriers to ownership.</p>
+                        <div class="text-xs font-mono text-yellow-300 bg-yellow-950/30 p-2 rounded">
+                            MITIGATION: UVT Framework & Wealth Attenuation
+                        </div>
+                    </div>
+
+                    <!-- Intellectual Harm -->
+                    <div class="p-6 glass-panel rounded-xl constitution-card border border-white/5">
+                        <div class="w-10 h-10 rounded-lg bg-blue-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-brain text-blue-400"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-white mb-2">Intellectual Harm</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4">Manipulation and enforced thought conformity.</p>
+                        <div class="text-xs font-mono text-blue-300 bg-blue-950/30 p-2 rounded">
+                            MITIGATION: Radical Transparency & Immutable Ledger
+                        </div>
+                    </div>
+
+                    <!-- Digital Harm -->
+                    <div class="p-6 glass-panel rounded-xl constitution-card border border-white/5">
+                        <div class="w-10 h-10 rounded-lg bg-green-500/10 flex items-center justify-center mb-4">
+                            <i class="fas fa-fingerprint text-green-400"></i>
+                        </div>
+                        <h4 class="font-bold text-lg text-white mb-2">Digital Harm</h4>
+                        <p class="text-sm text-slate-400 leading-relaxed mb-4">Data exploitation and mass surveillance.</p>
+                        <div class="text-xs font-mono text-green-300 bg-green-950/30 p-2 rounded">
+                            MITIGATION: 3 Body System & Proof of Uniqueness
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="architecture" class="mb-20">
+                <h2 class="text-3xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-chess-king mr-4 text-purple-500"></i> The Strategist: Google Gemini
+                </h2>
+                <p class="text-slate-400 mb-8 leading-relaxed">
+                    DepthOS Bridge utilizes <strong>Google Gemini</strong> as the "Architectural Sovereign" of the ensemble. By harnessing Gemini's massive context window, the Bridge can map entire workspaces to plan complex refactors before any code is written.
+                </p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    <div class="text-center p-4 glass-panel rounded-lg">
+                        <div class="text-2xl font-bold text-blue-400">2M+</div>
+                        <div class="text-xs text-slate-500 uppercase">Token Context</div>
+                    </div>
+                    <div class="text-center p-4 glass-panel rounded-lg">
+                        <div class="text-2xl font-bold text-purple-400">100%</div>
+                        <div class="text-xs text-slate-500 uppercase">Sovereign Data</div>
+                    </div>
+                    <div class="text-center p-4 glass-panel rounded-lg">
+                        <div class="text-2xl font-bold text-green-400">Real-Time</div>
+                        <div class="text-xs text-slate-500 uppercase">Constitutional Check</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="ssi" class="mb-20">
+                <h2 class="text-3xl font-bold mb-6 flex items-center">
+                    <i class="fas fa-network-wired mr-4 text-blue-400"></i> Article V: The 3 Body System
+                </h2>
+                <p class="text-slate-400 mb-6">Identity in DepthOS Bridge is federated to prevent digital harm:</p>
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-4 p-4 bg-slate-800/30 rounded-lg border border-white/5">
+                        <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">1</span>
+                        <div>
+                            <span class="font-bold text-white">The Identity Mint:</span>
+                            <span class="text-slate-400 text-sm"> Gateway for cryptographic generation.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-4 bg-blue-500/10 rounded-lg border border-blue-500/20">
+                        <span class="w-8 h-8 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold">2</span>
+                        <div>
+                            <span class="font-bold text-white">Sovereign Data Store:</span>
+                            <span class="text-slate-400 text-sm"> User-controlled local environment for keys and dynamic credentials.</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4 p-4 bg-slate-800/30 rounded-lg border border-white/5">
+                        <span class="w-8 h-8 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center font-bold">3</span>
+                        <div>
+                            <span class="font-bold text-white">The Ledger of Record:</span>
+                            <span class="text-slate-400 text-sm"> Immutable log of actions for trustless handshakes.</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="installation" class="mb-20">
+                <h2 class="text-3xl font-bold mb-6">Deployment</h2>
+                <div class="space-y-6">
+                    <div>
+                        <p class="mb-3 text-slate-300">1. Sideload the extension:</p>
+                        <pre class="code-font text-blue-300 text-sm">npm install && npm run sideload</pre>
+                    </div>
+                    <div>
+                        <p class="mb-3 text-slate-300">2. Configure API Architecture:</p>
+                        <pre class="code-font text-blue-300 text-sm">GOOGLE_AI_API_KEY=your_sovereign_key</pre>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="border-t border-white/5 py-12 mt-20 glass-panel">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-slate-500 text-sm">
+            <p>© 2026 The Promethean Society. Post-Dominion Mandate v1.0.0.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-white transition-colors">DAC Governance</a>
+                <a href="#" class="hover:text-white transition-colors">Immutable Ledger</a>
+                <a href="https://github.com/The-Promethean-Society/DepthOSUB" class="hover:text-white transition-colors">GitHub</a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
